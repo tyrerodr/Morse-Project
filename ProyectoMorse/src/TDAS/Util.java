@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -21,20 +23,26 @@ import javax.swing.JFileChooser;
  */
 public class Util {
     
-    public static String leerTexto(String archivo){
-        String line = null;
-        try(BufferedReader bffr = new BufferedReader(new FileReader("/src"+archivo))) {
+    public static HashMap<String, List<String>> leerArchivo() {
+        List<String> lista = new LinkedList<>();
+        HashMap<String, List<String>> mapa = new HashMap<String, List<String>>();
+        String[] array = new String[35];
+        String[] arrayMors = new String[35];
+        try (BufferedReader bff = new BufferedReader(new FileReader("src/recursos/archivo/traducciones.txt"))) {
             String linea;
-            while ((linea = bffr.readLine()) != null) {
-                line= line + linea;
-            }    
+            while ((linea = bff.readLine()) != null) {
+                array = linea.split("\\|");
+                mapa.put(array[0], lista);
+            }
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        return line;
+        }
+        return mapa;
     }
+    
     public static HashMap<String,Integer> calcularFrecuencias(String texto){
         HashMap<String,Integer> mapa = new HashMap<>();
         String[] caracteres = texto.split("");
