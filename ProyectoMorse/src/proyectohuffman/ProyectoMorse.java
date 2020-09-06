@@ -8,17 +8,15 @@ package proyectohuffman;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.LinkedList;
+
 import static javafx.application.Application.launch;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+
 
 /**
  *
  * @author Robert
  */
-public class Proyectohuffman extends Application {
+public class ProyectoMorse extends Application {
     public static Scene scene;
     public static int horaTamaño = 300;
     
@@ -30,8 +28,8 @@ public class Proyectohuffman extends Application {
     
     public void start(Stage primaryStage){      
         VentanaArbol i = new VentanaArbol();
-        scene = new Scene(i.getRoot(), 600, horaTamaño);
-        primaryStage.setTitle("PROYECTO HUFFMAN");
+        scene = new Scene(i.getRoot(), 700, 500);
+        primaryStage.setTitle("PROYECTO MORSE");
         primaryStage.setScene(scene);
         primaryStage.show();
         

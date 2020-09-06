@@ -15,6 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
@@ -23,63 +26,44 @@ import javafx.stage.FileChooser;
  * @author Bryan
  */
 public final class VentanaArbol {
-    final FileChooser fileChooser = new FileChooser();
     public static BorderPane root = new BorderPane();
     public static HBox top = new HBox();
+    public static VBox buttom = new VBox();
+    public static VBox center = new VBox();
 
     public VentanaArbol() {
         root.setPadding(new Insets(10));
         root.setStyle("-fx-background-color: #ffffff;");
         crearPanelTop();
-        center();
-        
+        bottom();
+        center();        
     }
 
+       
+    public void center(){
+     File file = new File("Imagen.png");
+     Image i = new Image(file.toURI().toString());
+     center.getChildren().add(new ImageView(i));
+     center.setAlignment(Pos.CENTER);
+     root.setCenter(center);
+    }
+            
     
-    public void center() {
-        VBox parteExterna = new VBox();
-        HBox mensajeMedico = new HBox();
-        Label msg1 = new Label("Seleccione la opcion que desea");
-        mensajeMedico.getChildren().addAll(msg1);
-        mensajeMedico.setAlignment(Pos.CENTER);
-
-        Button btnComprimir = new Button("COMPRIMIR");
-        Button btnDescomprimir = new Button("DESCOMPRIMIR");
-        
-        HBox parteBoton = new HBox(btnComprimir,btnDescomprimir);
+    public void bottom() {
+        Label msg1 = new Label("Seleccione el recorrido \"Letra\""); 
+        msg1.setAlignment(Pos.CENTER);
+        Button btnRecorrer = new Button("RECORRER");
+        HBox parteBoton = new HBox(btnRecorrer);
         parteBoton.setAlignment(Pos.CENTER);
-        parteBoton.setSpacing(10);
-        parteExterna.getChildren().addAll(mensajeMedico, parteBoton);
-
-        parteExterna.setAlignment(Pos.CENTER);
-        parteExterna.setSpacing(15);
-        root.setCenter(parteExterna);
+        TextField txtArchivo = new TextField();
+        buttom.getChildren().addAll(msg1,txtArchivo,parteBoton);
+        buttom.setSpacing(10);
+        buttom.setAlignment(Pos.CENTER);
+        root.setBottom(buttom);
         
-        btnComprimir.setOnMouseClicked((event) -> {
-             VBox parteExterna2 = new VBox(); 
-             Label archvit = new Label("Nombre del Archivo: ");
-             TextField txtArchivo = new TextField();
-             HBox partArchivo = new HBox(archvit,txtArchivo);
-             partArchivo.setAlignment(Pos.CENTER);
-             partArchivo.setSpacing(10);
-             Button btnConfirmar = new Button("CONFIRMAR");
-            HBox parteBoton2 = new HBox(btnConfirmar);
-            parteBoton2.setAlignment(Pos.CENTER);
-            parteExterna2.getChildren().addAll(partArchivo, parteBoton2);
-            parteExterna2.setSpacing(10);
-            parteExterna2.setAlignment(Pos.CENTER);
-            root.setCenter(parteExterna2);
-            
-            btnConfirmar.setOnMouseClicked((e) -> {
-            
-                
-                
-                root.getChildren().clear();
-                crearPanelTop();
-                center();
-           });
+        
     
-    });
+
     }
     
         
@@ -88,7 +72,7 @@ public final class VentanaArbol {
 
     
      public void crearPanelTop() {
-        Label icono = new Label("MENÚ DE OPCIONES");
+        Label icono = new Label("ARBOL MORSE");
         icono.setTextFill(Color.WHITE);
         VBox iconoBox = new VBox(icono);
         top.getChildren().add(iconoBox);

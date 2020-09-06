@@ -22,20 +22,19 @@ import java.util.logging.Logger;
 public class Prueba {
     
     public static void main(String[] arg){
-        leerArchivo();
+        System.out.println(leerArchivo());
     }
     
     public static HashMap<String, List<String>> leerArchivo() {
-        List<String> lista = new LinkedList<>();
+
         HashMap<String, List<String>> mapa = new HashMap<String, List<String>>();
-        //String[] arrayMors = new String[35];
         try (BufferedReader bff = new BufferedReader(new FileReader("src/recursos/archivo/traducciones.txt"))) {            
             String linea;
             while ((linea = bff.readLine()) != null) {                
-                String[] array = linea.split("\\|");                
+                String[] array = linea.split("\\|");
+                List<String> lista = new LinkedList<>();
                 for(int i=1 ; i<array.length ; i++){
                     lista.add(array[i]);
-                    //System.out.print(array[i]);
                 }
                 mapa.put(array[0], lista);
             }
