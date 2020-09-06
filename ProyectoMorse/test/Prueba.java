@@ -20,17 +20,17 @@ import java.util.logging.Logger;
  * @author Robert
  */
 public class Prueba {
-    
-    public static void main(String[] arg){
+
+    public static void main(String[] arg) {
         System.out.println(leerArchivo());
     }
-    
+
     public static HashMap<String, List<String>> leerArchivo() {
 
         HashMap<String, List<String>> mapa = new HashMap<String, List<String>>();
-        try (BufferedReader bff = new BufferedReader(new FileReader("src/recursos/archivo/traducciones.txt"))) {            
+        try (BufferedReader bff = new BufferedReader(new FileReader("src/recursos/archivo/traducciones.txt"))) {
             String linea;
-            while ((linea = bff.readLine()) != null) {                
+            while ((linea = bff.readLine()) != null) {
                 String[] array = linea.split("\\|");
                 List<String> lista = new LinkedList<>();
                 for(int i=1 ; i<array.length ; i++){
