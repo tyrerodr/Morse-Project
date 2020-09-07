@@ -77,8 +77,9 @@ public final class VentanaArbol {
     
     public void enceder(String Letra){
         for(Map.Entry<String, List<String>> entry : Util.mapa.entrySet()) {
-            for (int i = 0; i < Letra.length(); i++) {
-                if(entry.getKey().equals(Letra.charAt(i))){
+           for(String l : Letra.split("-")){
+                if(entry.getKey().equals(l)){
+                    pila.clear();
                     acumularPila(entry.getValue());
                 }
             }
@@ -98,7 +99,6 @@ public final class VentanaArbol {
                 }
                 }
         }  
-        val.clear();
         hilo.start();
     }
     
