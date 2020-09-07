@@ -19,17 +19,10 @@ public class Circulo {
         return circle;
     }
 
-    public void setCircle(Circle c) {
-        this.circle = c;
-    }
-
     public String getReferencia() {
         return referencia;
     }
 
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
-    }
 
     public Circulo(Circle c, String referencia) {
         this.circle = c;

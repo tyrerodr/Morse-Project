@@ -69,7 +69,6 @@ public class Util {
         return circlelist;
     }
         
-    
     public static void asignarCirculo(BorderPane pane){
         Iterator<Circulo> iterador = circlelist.iterator();
         
@@ -80,27 +79,10 @@ public class Util {
         }
     }
     
-    public static void asignarCirculoRecorrido(Stack<String> pila){
-        while(!pila.isEmpty()){
-            String obj = pila.pop();
-            System.out.println(obj);
-            Iterator<Circulo> iterador = circlelist.iterator();
-            while(iterador.hasNext()){
-            Circulo c = iterador.next();
-            if(obj.equals(c.getReferencia())){
-                System.out.println(c.getReferencia());
-                c.getCircle().setFill(Color.YELLOW);
-                
-            }
-            }
-            System.out.println(pila);
-        }
         
     
     }
     
-    
-}
     
     
 

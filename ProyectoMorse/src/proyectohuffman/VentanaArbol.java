@@ -54,9 +54,7 @@ public final class VentanaArbol {
         root.setStyle("-fx-background-color: #ffffff;");
         crearPanelTop();
         bottom();
-        center();
-        
-        
+        center(); 
     }
 
        
@@ -105,8 +103,6 @@ public final class VentanaArbol {
         public void run() {
             pila = invertir(pila);
             while(!pila.isEmpty()){                
-            System.out.println("-----------");
-            System.out.println(pila);
             String obj = pila.pop();
             
             Iterator<Circulo> iterador = circlelist.iterator();
