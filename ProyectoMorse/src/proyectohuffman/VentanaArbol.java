@@ -77,11 +77,8 @@ public final class VentanaArbol {
     
     public void enceder(String Letra){
         for(Map.Entry<String, List<String>> entry : Util.mapa.entrySet()) {
-           for(String l : Letra.split("-")){
-                if(entry.getKey().equals(l)){
-                    pila.clear();
+                if(entry.getKey().equals(Letra)){
                     acumularPila(entry.getValue());
-                }
             }
         }
     }
@@ -101,9 +98,7 @@ public final class VentanaArbol {
         }  
         hilo.start();
     }
-    
-    
-    
+   
     public static void generarHilo(){
         Thread hilo = new Thread(new Runnable() {
         @Override
@@ -115,20 +110,20 @@ public final class VentanaArbol {
             String obj = pila.pop();
             
             Iterator<Circulo> iterador = circlelist.iterator();
-            while (iterador.hasNext()) {
+            while (iterador.hasNext()){
                 Circulo c = iterador.next();
                 Platform.runLater(() -> {      
                     if(obj.equals(c.getReferencia())){
                     c.getCircle().setFill(Color.YELLOW);  
                 }
                 });
-                c.getCircle().setFill(Color.TRANSPARENT);
-                try {
-                    Thread.sleep(50);
+                try{
+                    Thread.sleep(200);
+                    c.getCircle().setFill(Color.TRANSPARENT);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(VentanaArbol.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            } 
         }
     }});setThread(hilo);
         }
@@ -137,8 +132,7 @@ public final class VentanaArbol {
         VentanaArbol.hilo = puestoThread;
     }
     
-    
-    
+   
     public static Stack invertir(Stack pila){
         Stack pilanew = new Stack();
         while(!pila.isEmpty()){
@@ -149,7 +143,7 @@ public final class VentanaArbol {
 
     
     public void bottom() {
-        Label msg1 = new Label("Seleccione el recorrido \"Letra\""); 
+        Label msg1 = new Label("Seleccione el recorrido para una \"Letra\""); 
         msg1.setAlignment(Pos.CENTER);
         Button btnRecorrer = new Button("RECORRER");
         HBox parteBoton = new HBox(btnRecorrer);
