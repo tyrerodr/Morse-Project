@@ -6,7 +6,10 @@
 package proyectohuffman;
 
 
+import TDAS.Util;
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -38,11 +41,13 @@ public final class VentanaArbol {
     public static VBox center = new VBox();
 
     public VentanaArbol() {
+        Util.asignarCirculo(root);
         root.setPadding(new Insets(10));
         root.setStyle("-fx-background-color: #ffffff;");
         crearPanelTop();
         bottom();
-        center();        
+        center();
+        
     }
 
        
@@ -56,65 +61,29 @@ public final class VentanaArbol {
                                              BackgroundPosition.CENTER,  
                                                 BackgroundSize.DEFAULT); 
      Background background = new Background(backgroundimage); 
-     center.setBackground(background);     
-     
-
-     
-     Circle a = new Circle(245, 127, 16);
-     Circle b = new Circle(465, 127, 16);
-     Circle c = new Circle(185, 187, 16);
-     Circle d = new Circle(295, 187, 16);
-     Circle e = new Circle(406, 187, 16);
-     Circle f = new Circle(514, 187, 16);
-     Circle g = new Circle(267, 251, 16);
-     Circle h = new Circle(322, 251, 16);
-     Circle i = new Circle(160, 251, 16);
-     Circle j = new Circle(215, 251, 16);
-     Circle k = new Circle(267, 251, 16);
-     Circle l = new Circle(322, 251, 16);
-     Circle m = new Circle(380, 251, 16);
-     Circle n = new Circle(435, 251, 16);
-     Circle o = new Circle(485, 251, 16);
-     Circle p = new Circle(540, 251, 16);
-     Circle q = new Circle(448, 311, 13);
-     Circle r = new Circle(468, 311, 13);
-     Circle s = new Circle(488, 311, 13);
-     Circle t = new Circle(498, 311, 13);
-     Circle u = new Circle(366, 311, 12);
-
-     
-     
-     root.getChildren().add(a);
-     root.getChildren().add(b);
-     root.getChildren().add(c);
-     root.getChildren().add(d);
-     root.getChildren().add(e);
-     root.getChildren().add(f);
-     root.getChildren().add(g);
-     root.getChildren().add(h);
-     root.getChildren().add(i);
-     root.getChildren().add(j);
-     root.getChildren().add(k);
-     root.getChildren().add(l);
-     root.getChildren().add(m);
-     root.getChildren().add(n);
-     root.getChildren().add(o);
-     root.getChildren().add(p);
-     root.getChildren().add(q);
-     root.getChildren().add(r);
-     root.getChildren().add(s);
-     root.getChildren().add(t);
-     root.getChildren().add(u);
-     /*root.getChildren().add(v);
-     root.getChildren().add(w);
-     root.getChildren().add(x);
-     root.getChildren().add(y);
-     root.getChildren().add(z);*/
-    
-     
+     center.setBackground(background);      
      root.setCenter(center);
     }
             
+    
+    public void enceder(String Letra){
+        for (Map.Entry<String, List<String>> entry : Util.mapa.entrySet()) {
+            for (int i = 0; i < Letra.length(); i++) {
+                if(entry.getKey().contains(Letra)){
+                    entry.getValue();
+                }
+        System.out.println("clave=" + entry.getKey() + ", valor=" + entry.getValue());
+            }
+        }
+    }
+    
+    
+    public void pila(){
+        
+        
+    }
+    
+    
     
     public void bottom() {
         Label msg1 = new Label("Seleccione el recorrido \"Letra\""); 
@@ -127,6 +96,10 @@ public final class VentanaArbol {
         buttom.setSpacing(10);
         buttom.setAlignment(Pos.CENTER);
         root.setBottom(buttom);
+        
+        btnRecorrer.setOnMouseClicked((event) -> {
+            enceder(txtArchivo.getText());
+        });
     }
     
         
@@ -145,8 +118,6 @@ public final class VentanaArbol {
      }
      
     
- 
-        
     public static BorderPane getRoot() {
         return root;
     }

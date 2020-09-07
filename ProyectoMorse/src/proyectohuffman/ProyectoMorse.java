@@ -26,7 +26,8 @@ public class ProyectoMorse extends Application {
     
     @Override
     public void init(){
-        System.out.println("Datos Cargados!!!");
+        Util.leerArchivo();
+        Util.cargarCirculo();
        
     }
     
