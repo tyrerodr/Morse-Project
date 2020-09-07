@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -27,18 +26,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+
 
 /**
  *
@@ -50,6 +46,7 @@ public final class VentanaArbol {
     public static VBox buttom = new VBox();
     public static VBox center = new VBox();
     public static Stack<String> pila = new Stack();
+    public static Thread hilo;
 
     public VentanaArbol() {
         Util.asignarCirculo(root);
@@ -81,15 +78,15 @@ public final class VentanaArbol {
     public void enceder(String Letra){
         for(Map.Entry<String, List<String>> entry : Util.mapa.entrySet()) {
             for (int i = 0; i < Letra.length(); i++) {
-                if(entry.getKey().contains(Letra)){
-                    prender(entry.getValue());
+                if(entry.getKey().equals(Letra.charAt(i))){
+                    acumularPila(entry.getValue());
                 }
             }
         }
     }
     
     
-    public void prender(List<String> letra){
+    public void acumularPila(List<String> letra){
         List<String> val = new LinkedList<>();
         for(String a : letra){
             if((".".equals(a) || "-".equals(a))){
@@ -102,10 +99,13 @@ public final class VentanaArbol {
                 }
         }  
         val.clear();
-        luz.start();
+        hilo.start();
     }
     
-    Thread luz = new Thread(new Runnable() {
+    
+    
+    public static void generarHilo(){
+        Thread hilo = new Thread(new Runnable() {
         @Override
         public void run() {
             pila = invertir(pila);
@@ -130,9 +130,16 @@ public final class VentanaArbol {
                 }
             }
         }
-    }});
+    }});setThread(hilo);
+        }
     
-    public Stack invertir(Stack pila){
+    public static void setThread(Thread puestoThread) {
+        VentanaArbol.hilo = puestoThread;
+    }
+    
+    
+    
+    public static Stack invertir(Stack pila){
         Stack pilanew = new Stack();
         while(!pila.isEmpty()){
             pilanew.push(pila.pop());
@@ -154,8 +161,10 @@ public final class VentanaArbol {
         root.setBottom(buttom);
         
         btnRecorrer.setOnMouseClicked((event) -> {
+            generarHilo();
             enceder(txtArchivo.getText());
             txtArchivo.setText(null);
+            
         });
     }
     
