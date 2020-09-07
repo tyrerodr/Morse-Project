@@ -5,20 +5,22 @@
  */
 package proyectohuffman;
 
+import javafx.scene.shape.Circle;
+
 /**
  *
  * @author Tyrone
  */
 public class Circulo {
-    public Circulo c;
+    public Circle circle;
     public String referencia;
 
-    public Circulo getC() {
-        return c;
+    public Circle getCircle() {
+        return circle;
     }
 
-    public void setC(Circulo c) {
-        this.c = c;
+    public void setCircle(Circle c) {
+        this.circle = c;
     }
 
     public String getReferencia() {
@@ -29,8 +31,8 @@ public class Circulo {
         this.referencia = referencia;
     }
 
-    public Circulo(Circulo c, String referencia) {
-        this.c = c;
+    public Circulo(Circle c, String referencia) {
+        this.circle = c;
         this.referencia = referencia;
     }
     

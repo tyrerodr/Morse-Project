@@ -7,9 +7,16 @@ package proyectohuffman;
 
 
 import TDAS.Util;
+import static TDAS.Util.circlelist;
 import java.io.File;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -26,6 +33,9 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -39,6 +49,7 @@ public final class VentanaArbol {
     public static HBox top = new HBox();
     public static VBox buttom = new VBox();
     public static VBox center = new VBox();
+    public static Stack<String> pila = new Stack();
 
     public VentanaArbol() {
         Util.asignarCirculo(root);
@@ -47,6 +58,7 @@ public final class VentanaArbol {
         crearPanelTop();
         bottom();
         center();
+        
         
     }
 
@@ -72,18 +84,62 @@ public final class VentanaArbol {
                 if(entry.getKey().contains(Letra)){
                     entry.getValue();
                 }
-        System.out.println("clave=" + entry.getKey() + ", valor=" + entry.getValue());
             }
         }
     }
     
     
-    public void pila(){
-        
-        
+    public void prender(List<String> letra){
+        List<String> val = new LinkedList<>();
+        for(String a : letra){
+            if((".".equals(a) || "-".equals(a))){
+                val.add(a);
+                for (Map.Entry<String, List<String>> entry : Util.mapa.entrySet()) {
+                    if(val.equals(entry.getValue())){
+                        pila.push(entry.getKey());
+                    }
+                }
+                }
+        }  
+        val.clear();
+        luz.start();
     }
     
+    Thread luz = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            pila = invertir(pila);
+            while(!pila.isEmpty()){                
+            System.out.println("-----------");
+            System.out.println(pila);
+            String obj = pila.pop();
+            
+            Iterator<Circulo> iterador = circlelist.iterator();
+            while (iterador.hasNext()) {
+                Circulo c = iterador.next();
+                Platform.runLater(() -> {      
+                    if(obj.equals(c.getReferencia())){
+                    c.getCircle().setFill(Color.YELLOW);  
+                }
+                });
+                c.getCircle().setFill(Color.TRANSPARENT);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(VentanaArbol.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }});
     
+    public Stack invertir(Stack pila){
+        Stack pilanew = new Stack();
+        while(!pila.isEmpty()){
+            pilanew.push(pila.pop());
+        } 
+        return pilanew;
+    }
+
     
     public void bottom() {
         Label msg1 = new Label("Seleccione el recorrido \"Letra\""); 
@@ -99,14 +155,11 @@ public final class VentanaArbol {
         
         btnRecorrer.setOnMouseClicked((event) -> {
             enceder(txtArchivo.getText());
+            txtArchivo.setText(null);
         });
     }
     
-        
-        
-    
 
-    
      public void crearPanelTop() {
         Label icono = new Label("ARBOL MORSE");
         icono.setTextFill(Color.WHITE);

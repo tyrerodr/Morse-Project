@@ -30,7 +30,7 @@ public class ProyectoMorse extends Application {
         Util.cargarCirculo();
        
     }
-    
+
     public void start(Stage primaryStage){      
         VentanaArbol i = new VentanaArbol();
         scene = new Scene(i.getRoot(), 700, 500);

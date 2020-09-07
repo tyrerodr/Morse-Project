@@ -15,12 +15,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javax.swing.JFileChooser;
+import proyectohuffman.Circulo;
 import static proyectohuffman.VentanaArbol.root;
 
 /**
@@ -29,9 +31,8 @@ import static proyectohuffman.VentanaArbol.root;
  */
 public class Util {
     public static HashMap<String, List<String>> mapa = new HashMap<>();
-    public static LinkedList<Circle> circlelist = new LinkedList<>();
-    public static HashMap<String, List<String>> circlemapa = new HashMap<>();
-   
+    public static LinkedList<Circulo> circlelist = new LinkedList<>();
+
     public static HashMap<String, List<String>> leerArchivo() {
         try (BufferedReader bff = new BufferedReader(new FileReader("src/recursos/archivo/traducciones.txt"))) {            
             String linea;
@@ -53,12 +54,12 @@ public class Util {
         return mapa;
     }
 
-    public static LinkedList<Circle> cargarCirculo() {
+    public static LinkedList<Circulo> cargarCirculo() {
         try (BufferedReader bff = new BufferedReader(new FileReader("src/recursos/archivo/circle.txt"))) {
             String linea;
             while ((linea = bff.readLine()) != null) {
                 String[] array = linea.split("\\,");
-                circlelist.add(new Circle(Double.parseDouble(array[0]), Double.parseDouble(array[1]), Double.parseDouble(array[2])));
+                circlelist.add(new Circulo(new Circle(Double.parseDouble(array[0]), Double.parseDouble(array[1]), Double.parseDouble(array[2])),array[3]));
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Circle.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,18 +71,36 @@ public class Util {
         
     
     public static void asignarCirculo(BorderPane pane){
-        Iterator<Circle> iterador = circlelist.iterator();
-        Iterator<List<String>> i =  mapa.values().iterator();
+        Iterator<Circulo> iterador = circlelist.iterator();
         
         while(iterador.hasNext()){
-            Circle c = iterador.next();
-            
-            c.setFill(Color.TRANSPARENT);
-            pane.getChildren().add(c);
+            Circulo c = iterador.next();
+            c.getCircle().setFill(Color.TRANSPARENT);
+            pane.getChildren().add(c.getCircle());
         }
     }
     
+    public static void asignarCirculoRecorrido(Stack<String> pila){
+        while(!pila.isEmpty()){
+            String obj = pila.pop();
+            System.out.println(obj);
+            Iterator<Circulo> iterador = circlelist.iterator();
+            while(iterador.hasNext()){
+            Circulo c = iterador.next();
+            if(obj.equals(c.getReferencia())){
+                System.out.println(c.getReferencia());
+                c.getCircle().setFill(Color.YELLOW);
+                
+            }
+            }
+            System.out.println(pila);
+        }
+        
+    
     }
+    
+    
+}
     
     
 
