@@ -5,6 +5,10 @@
  */
 package proyectohuffman;
 
+import TDAS.BinaryTree;
+import TDAS.Util;
+import java.util.HashMap;
+import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -44,6 +48,9 @@ public class ProyectoMorse extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        BinaryTree<String> tree = new BinaryTree<>();
+        HashMap<String, List<String>> mapa = Util.leerArchivo();
+        tree.crearArbolMorse(mapa).preOrden();
         launch(args);
     }
     

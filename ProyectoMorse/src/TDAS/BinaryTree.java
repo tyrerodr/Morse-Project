@@ -261,21 +261,21 @@ public class BinaryTree<E> {
         BinaryTree<String> bt = new BinaryTree<>();
         bt.root = new Node<>("INICIO");
         for (Entry<String, List<String>> e : mapa.entrySet()) {
-            Node<String> inicio = bt.root;
+            Node<String> q = bt.root;
             for (String sim : e.getValue()) {
                 if (sim.equals("-")) {
-                    if (inicio.left == null) {
-                        inicio.left = new Node<>(" ");
+                    if (q.left == null) {
+                        q.left = new Node<>(" ");
                     }
-                    inicio = inicio.left;
+                    q = q.left;
                 } else {
-                    if (inicio.right == null) {
-                        inicio.right = new Node<>(null);
+                    if (q.right == null) {
+                        q.right = new Node<>(null);
                     }
-                    inicio = inicio.right;
+                    q = q.right;
                 }
             }
-            inicio.data = e.getKey();
+            q.data = e.getKey();
         }
         return bt;
     }
