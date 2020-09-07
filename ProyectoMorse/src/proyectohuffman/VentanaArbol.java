@@ -79,10 +79,10 @@ public final class VentanaArbol {
             
     
     public void enceder(String Letra){
-        for (Map.Entry<String, List<String>> entry : Util.mapa.entrySet()) {
+        for(Map.Entry<String, List<String>> entry : Util.mapa.entrySet()) {
             for (int i = 0; i < Letra.length(); i++) {
                 if(entry.getKey().contains(Letra)){
-                    entry.getValue();
+                    prender(entry.getValue());
                 }
             }
         }
